@@ -52,12 +52,17 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(22px)" },
           to: { opacity: "1", transform: "none" },
         },
+        drift: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "marq-36": "marq 36s linear infinite",
         "marq-42": "marq 42s linear infinite",
         slowpan: "slowpan 28s ease-in-out infinite",
         cue: "cue 2.4s cubic-bezier(0.6,0,0.4,1) infinite",
+        drift: "drift 24s ease-in-out infinite",
       },
     },
   },

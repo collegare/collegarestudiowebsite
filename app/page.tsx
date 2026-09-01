@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { FilmBand } from "@/components/film-band";
+import { HeroVideo } from "@/components/hero-video";
 import { ProductCard } from "@/components/product-card";
 import { Btn, TextLink } from "@/components/ui";
 import { ctaLabel, marqueeWords, courseChips, products } from "@/lib/site";
@@ -13,19 +14,7 @@ export default function Home() {
   return (
     <main>
       {/* HERO */}
-      <section className="striped relative h-auto min-h-[max(660px,100svh)] overflow-hidden">
-        <video
-          src="/img/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/img/hero-2.jpg"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        {/* Required overlays — footage swings near-white and cream type fails without them */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(26,21,18,0.62)_0%,rgba(26,21,18,0.42)_22%,rgba(26,21,18,0.5)_48%,rgba(26,21,18,0.6)_74%,rgba(26,21,18,0.78)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_48%,rgba(26,21,18,0.5)_0%,rgba(26,21,18,0.22)_55%,rgba(26,21,18,0)_80%)]" />
+      <HeroVideo src="/img/hero.mp4" poster="/img/hero-2.jpg">
 
         <div className="relative box-border flex min-h-[max(660px,100svh)] flex-col items-center justify-center gap-[clamp(18px,3vh,34px)] px-[clamp(18px,5vw,60px)] pb-[104px] pt-[132px] text-center text-cream">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -58,7 +47,7 @@ export default function Home() {
             </span>
           </span>
         </div>
-      </section>
+      </HeroVideo>
 
       {/* MARQUEE */}
       <div className="overflow-hidden bg-brand py-3.5 text-cream">
