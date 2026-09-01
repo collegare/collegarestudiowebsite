@@ -126,20 +126,26 @@ export function SiteHeader() {
                 </Link>
               ))}
             </span>
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                setOpen(true);
-              }}
-              aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
-              className="-mr-1 inline-flex items-center gap-[7px] whitespace-nowrap px-1 py-2 font-body text-[11.5px] font-semibold uppercase tracking-[0.14em] transition-opacity duration-200 hover:opacity-70"
-            >
-              <span aria-hidden className="relative inline-block h-3 w-[13px] rounded-b-[2px] border-[1.5px] border-t-0 border-current">
-                <span className="absolute left-1/2 top-[-6px] h-[7px] w-2 -translate-x-1/2 rounded-t-[5px] border-[1.5px] border-b-0 border-current" />
-              </span>
-              <span className="hidden sm:inline">Cart </span>({count})
-            </button>
+            {site.cartOpen ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setOpen(true);
+                }}
+                aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
+                className="-mr-1 inline-flex items-center gap-[7px] whitespace-nowrap px-1 py-2 font-body text-[11.5px] font-semibold uppercase tracking-[0.14em] transition-opacity duration-200 hover:opacity-70"
+              >
+                <span aria-hidden className="relative inline-block h-3 w-[13px] rounded-b-[2px] border-[1.5px] border-t-0 border-current">
+                  <span className="absolute left-1/2 top-[-6px] h-[7px] w-2 -translate-x-1/2 rounded-t-[5px] border-[1.5px] border-b-0 border-current" />
+                </span>
+                <span className="hidden sm:inline">Cart </span>({count})
+              </button>
+            ) : (
+              <Link href="/waitlist" className={`hidden md:inline-block ${linkCls}`}>
+                Join &rarr;
+              </Link>
+            )}
           </nav>
         </div>
       </header>

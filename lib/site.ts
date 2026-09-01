@@ -7,7 +7,8 @@ export const site = {
   tiktok: "https://www.tiktok.com/@collegare.studio",
   tiktokHandle: "@collegare.studio",
   management: "https://www.collegaretalentmanagement.com/for-creators#apply",
-  // Flip to true on cart-open day to swap waitlist CTAs for checkout.
+  // Flip to true on cart-open day: restores Add to cart, the header cart, and the
+  // ThriveCart embed on any product that has a `thrivecart` config.
   cartOpen: false,
   waitlistGoal: 300,
 };
@@ -66,7 +67,7 @@ export type Product = {
   price: string;
   name: string;
   copy: string;
-  state: "Available" | "Pre-order";
+  state: "Available" | "Pre-order" | "Coming soon";
   img?: string; // real 4:5 shot; when absent, a striped placeholder tile is used
   // ThriveCart v2 embeddable checkout — present once the product is live in ThriveCart.
   thrivecart?: { account: string; product: string; embeddable: string };
@@ -79,9 +80,8 @@ export const products: Product[] = [
     slug: "rate-card-builder",
     name: "The Rate Card Builder",
     copy: "Your sales department’s only real tool. Rates from your inputs, a quote you can defend, and the working shown.",
-    state: "Available",
+    state: "Coming soon",
     img: "/img/shop-rate-card.jpg",
-    thrivecart: { account: "collegarestudio", product: "3", embeddable: "tc-collegarestudio-3-V1OWM9" },
   },
   {
     tag: "Systems",
@@ -89,7 +89,7 @@ export const products: Product[] = [
     slug: "deal-tracker",
     name: "The Deal Tracker",
     copy: "Your ops department in one board. Every deal, stage and dollar owed, visible.",
-    state: "Available",
+    state: "Coming soon",
     img: "/img/deal-tracker.jpg",
   },
   {
@@ -98,7 +98,7 @@ export const products: Product[] = [
     slug: "contract-pack",
     name: "The Contract Pack",
     copy: "Your legal review, pre-written. Scope, usage, exclusivity, revisions, kill fee.",
-    state: "Available",
+    state: "Coming soon",
     img: "/img/contract-pack.jpg",
   },
   {
@@ -107,7 +107,7 @@ export const products: Product[] = [
     slug: "invoice-net-30-kit",
     name: "The Invoice & Net-30 Kit",
     copy: "Finance, including the day-61 email — the one that gets answered without burning the relationship.",
-    state: "Available",
+    state: "Coming soon",
     img: "/img/invoice-net-30-kit.jpg",
   },
   {
@@ -116,7 +116,7 @@ export const products: Product[] = [
     slug: "pitch-library",
     name: "The Pitch Library",
     copy: "Outbound that gets answered: cold, warm, re-engage, and the follow-up sequence.",
-    state: "Available",
+    state: "Coming soon",
     img: "/img/pitch-library.jpg",
   },
   {
@@ -125,7 +125,7 @@ export const products: Product[] = [
     slug: "back-office-planner",
     name: "The Back Office Planner",
     copy: "The print one, for people who think on paper. Weekly pipeline, invoices out, invoices owed.",
-    state: "Pre-order",
+    state: "Coming soon",
   },
 ];
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/site";
+import { site, type Product } from "@/lib/site";
 import { AddToCart } from "@/components/add-to-cart";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -53,7 +53,7 @@ export function ProductCard({ product }: { product: Product }) {
 
       <div className="mt-4 flex items-center justify-between gap-3">
         <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand">{product.state}</span>
-        <AddToCart slug={product.slug} variant="compact" />
+        {site.cartOpen ? <AddToCart slug={product.slug} variant="compact" /> : null}
       </div>
     </div>
   );

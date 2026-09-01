@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ThriveCartCheckout } from "@/components/thrivecart-checkout";
 import { AddToCart } from "@/components/add-to-cart";
 import { Btn } from "@/components/ui";
-import { products } from "@/lib/site";
+import { products, site } from "@/lib/site";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -72,7 +72,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               <p className="mt-4 max-w-[46ch] text-[1rem] leading-[1.8] text-graphite [text-wrap:pretty]">{p.copy}</p>
               <p className="mt-3 text-[9.5px] font-semibold uppercase tracking-label text-brand">{p.state}</p>
 
-              {p.thrivecart ? (
+              {site.cartOpen && p.thrivecart ? (
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <AddToCart slug={p.slug} />
                   <a href="#checkout" className="label !text-ink border-b-[1.5px] border-brand pb-[3px] hover:!text-brand">
@@ -82,11 +82,10 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               ) : (
                 <div className="mt-8 border-t border-ink/[0.16] pt-6">
                   <p className="max-w-[44ch] text-[0.95rem] leading-[1.7] text-graphite">
-                    Checkout for this one opens with the launch. Join the waitlist and you&rsquo;ll get it first.
+                    This one is coming soon. Join the waitlist and you&rsquo;ll get it first, at the founding price.
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <AddToCart slug={p.slug} />
-                    <Btn href="/waitlist" variant="outline-ink" arrow>Join the waitlist</Btn>
+                  <div className="mt-5">
+                    <Btn href="/waitlist" variant="solid" arrow>Join the waitlist</Btn>
                   </div>
                 </div>
               )}
@@ -96,7 +95,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       </section>
 
       {/* Full-width checkout — gives the ThriveCart embed room to render at a readable size */}
-      {p.thrivecart ? (
+      {site.cartOpen && p.thrivecart ? (
         <section id="checkout" className="scroll-mt-[var(--chrome-offset)] border-t border-ink/[0.14] bg-linen py-[clamp(44px,8vh,100px)]">
           <div className="mx-auto max-w-[860px] px-[clamp(18px,3.4vw,44px)]">
             <p className="label !text-brand text-center">Checkout</p>
