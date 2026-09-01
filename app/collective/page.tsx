@@ -29,7 +29,7 @@ export default function CollectivePage() {
           </p>
 
           <div className="mt-[clamp(24px,3.6vh,36px)] flex flex-wrap items-center gap-3">
-            <Btn href="#join" variant="light" arrow>Join the Collective</Btn>
+            <Btn href="#join" variant="light" arrow>Coming soon</Btn>
             <Btn href={site.tiktok} variant="outline-cream" external>
               Follow {site.tiktokHandle}
             </Btn>
