@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TikTokStrip } from "@/components/tiktok-strip";
 import { ScrollFX } from "@/components/scroll-fx";
+import { CartProvider } from "@/components/cart";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://collegarestudio.com"),
@@ -37,10 +38,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <SiteHeader />
-        {children}
-        <TikTokStrip />
-        <SiteFooter />
+        <CartProvider>
+          <SiteHeader />
+          {children}
+          <TikTokStrip />
+          <SiteFooter />
+        </CartProvider>
         <ScrollFX />
       </body>
     </html>

@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/site";
+import { AddToCart } from "@/components/add-to-cart";
 
 export function ProductCard({ product }: { product: Product }) {
+  const href = `/shop/${product.slug}`;
   return (
-    <Link href={`/shop/${product.slug}`} className="group flex flex-col text-ink transition-colors hover:text-brand">
-      <div className="relative aspect-[4/5] w-full overflow-hidden">
+    <div className="group flex flex-col">
+      <Link href={href} className="relative block aspect-[4/5] w-full overflow-hidden">
         {product.img ? (
           <Image
             src={product.img}
@@ -34,14 +36,25 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           </div>
         )}
-      </div>
+      </Link>
+
       <div className="mt-4 flex items-baseline justify-between gap-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-mute">
         <span>{product.tag}</span>
         <span className="text-brand">{product.price}</span>
       </div>
-      <h3 className="display mt-2 text-[clamp(1.3rem,2vw,1.7rem)] leading-[1.05] text-inherit">{product.name}</h3>
+
+      <Link href={href} className="mt-2 block">
+        <h3 className="display text-[clamp(1.3rem,2vw,1.7rem)] leading-[1.05] transition-colors group-hover:text-brand">
+          {product.name}
+        </h3>
+      </Link>
+
       <p className="mt-2.5 text-[0.93rem] leading-[1.75] text-graphite [text-wrap:pretty]">{product.copy}</p>
-      <span className="mt-3 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand">{product.state}</span>
-    </Link>
+
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand">{product.state}</span>
+        <AddToCart slug={product.slug} variant="compact" />
+      </div>
+    </div>
   );
 }

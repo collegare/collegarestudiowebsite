@@ -81,6 +81,7 @@ export const products: Product[] = [
     copy: "Your sales department’s only real tool. Rates from your inputs, a quote you can defend, and the working shown.",
     state: "Available",
     img: "/img/shop-rate-card.jpg",
+    thrivecart: { account: "collegarestudio", product: "3", embeddable: "tc-collegarestudio-3-V1OWM9" },
   },
   {
     tag: "Systems",
@@ -90,7 +91,6 @@ export const products: Product[] = [
     copy: "Your ops department in one board. Every deal, stage and dollar owed, visible.",
     state: "Available",
     img: "/img/deal-tracker.jpg",
-    thrivecart: { account: "collegarestudio", product: "3", embeddable: "tc-collegarestudio-3-V1OWM9" },
   },
   {
     tag: "Contracts",

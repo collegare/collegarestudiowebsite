@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { navLeft, navRight } from "@/lib/site";
+import { useCart } from "@/components/cart";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
+  const { count, setOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -79,15 +81,17 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/shop"
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
               className="inline-flex items-center gap-[7px] font-body text-[11.5px] font-semibold uppercase tracking-[0.14em] transition-opacity duration-200 hover:opacity-70"
             >
               <span aria-hidden className="relative inline-block h-3 w-[13px] rounded-b-[2px] border-[1.5px] border-t-0 border-current">
                 <span className="absolute left-1/2 top-[-6px] h-[7px] w-2 -translate-x-1/2 rounded-t-[5px] border-[1.5px] border-b-0 border-current" />
               </span>
-              Cart (0)
-            </Link>
+              Cart ({count})
+            </button>
           </nav>
         </div>
       </header>
