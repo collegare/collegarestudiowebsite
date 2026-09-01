@@ -99,6 +99,7 @@ export const products: Product[] = [
     name: "The Contract Pack",
     copy: "Your legal review, pre-written. Scope, usage, exclusivity, revisions, kill fee.",
     state: "Available",
+    img: "/img/contract-pack.jpg",
   },
   {
     tag: "Money",
@@ -107,6 +108,7 @@ export const products: Product[] = [
     name: "The Invoice & Net-30 Kit",
     copy: "Finance, including the day-61 email — the one that gets answered without burning the relationship.",
     state: "Available",
+    img: "/img/invoice-net-30-kit.jpg",
   },
   {
     tag: "Deals",
@@ -115,6 +117,7 @@ export const products: Product[] = [
     name: "The Pitch Library",
     copy: "Outbound that gets answered: cold, warm, re-engage, and the follow-up sequence.",
     state: "Available",
+    img: "/img/pitch-library.jpg",
   },
   {
     tag: "The Work",
