@@ -61,18 +61,22 @@ export const footerCols = [
 ];
 
 export type Product = {
+  slug: string;
   tag: string;
   price: string;
   name: string;
   copy: string;
   state: "Available" | "Pre-order";
   img?: string; // real 4:5 shot; when absent, a striped placeholder tile is used
+  // ThriveCart v2 embeddable checkout — present once the product is live in ThriveCart.
+  thrivecart?: { account: string; product: string; embeddable: string };
 };
 
 export const products: Product[] = [
   {
     tag: "Deals",
     price: "$39",
+    slug: "rate-card-builder",
     name: "The Rate Card Builder",
     copy: "Your sales department’s only real tool. Rates from your inputs, a quote you can defend, and the working shown.",
     state: "Available",
@@ -81,14 +85,17 @@ export const products: Product[] = [
   {
     tag: "Systems",
     price: "$49",
+    slug: "deal-tracker",
     name: "The Deal Tracker",
     copy: "Your ops department in one board. Every deal, stage and dollar owed, visible.",
     state: "Available",
     img: "/img/deal-tracker.jpg",
+    thrivecart: { account: "collegarestudio", product: "3", embeddable: "tc-collegarestudio-3-V1OWM9" },
   },
   {
     tag: "Contracts",
     price: "$129",
+    slug: "contract-pack",
     name: "The Contract Pack",
     copy: "Your legal review, pre-written. Scope, usage, exclusivity, revisions, kill fee.",
     state: "Available",
@@ -96,6 +103,7 @@ export const products: Product[] = [
   {
     tag: "Money",
     price: "$45",
+    slug: "invoice-net-30-kit",
     name: "The Invoice & Net-30 Kit",
     copy: "Finance, including the day-61 email — the one that gets answered without burning the relationship.",
     state: "Available",
@@ -103,6 +111,7 @@ export const products: Product[] = [
   {
     tag: "Deals",
     price: "$35",
+    slug: "pitch-library",
     name: "The Pitch Library",
     copy: "Outbound that gets answered: cold, warm, re-engage, and the follow-up sequence.",
     state: "Available",
@@ -110,6 +119,7 @@ export const products: Product[] = [
   {
     tag: "The Work",
     price: "$29",
+    slug: "back-office-planner",
     name: "The Back Office Planner",
     copy: "The print one, for people who think on paper. Weekly pipeline, invoices out, invoices owed.",
     state: "Pre-order",

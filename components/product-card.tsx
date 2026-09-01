@@ -4,7 +4,7 @@ import type { Product } from "@/lib/site";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <Link href="/shop" className="group flex flex-col text-ink transition-colors hover:text-brand">
+    <Link href={`/shop/${product.slug}`} className="group flex flex-col text-ink transition-colors hover:text-brand">
       <div className="relative aspect-[4/5] w-full overflow-hidden">
         {product.img ? (
           <Image
