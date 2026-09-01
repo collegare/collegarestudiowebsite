@@ -161,9 +161,9 @@ export const courseFaq = [
 ];
 
 export const membership = [
-  { t: "First look at the briefs.", d: "We build brand-side relationships as a studio. When a campaign brief comes in, it goes to the Collective before it goes anywhere else — you see the scope and the budget, and you decide whether to pitch. No representation, no cut of your deal." },
-  { t: "The coworkers you lost.", d: "Going out on your own also meant nobody to lean over and ask “does this rate look insane to you?” Monday standups, deal reviews, and a feed where you can post a real number." },
-  { t: "The reason to stay after the course.", d: "The course ends. The briefs and the room don't. This is where the next opportunity tends to come from." },
+  { t: "Brand partnerships, first.", d: "We build the brand relationships as a studio. When a campaign brief comes in, the Collective sees it before anyone else — scope and budget included — and you decide whether to pitch. You keep the whole fee. We take no cut and we don’t represent you." },
+  { t: "The coworkers you don’t have.", d: "Working for yourself means nobody to lean over and ask “does this rate look insane to you?” Monday standups, deal reviews, and a room where you can post a real number and get a real answer." },
+  { t: "Access that keeps working.", d: "Membership isn’t something you finish. The Collective doubles as our creator database — when a brand comes to Collegare looking for people, we build the shortlist from this room before we look anywhere else. Staying in it is how you keep getting put forward." },
 ];
 
 export const rituals = [
