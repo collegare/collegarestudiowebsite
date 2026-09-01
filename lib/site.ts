@@ -128,14 +128,6 @@ export const products: Product[] = [
     state: "Coming soon",
     img: "/img/back-office.jpg",
   },
-  {
-    tag: "The Work",
-    price: "$29",
-    slug: "back-office-planner",
-    name: "The Back Office Planner",
-    copy: "The print one, for people who think on paper. Weekly pipeline, invoices out, invoices owed.",
-    state: "Coming soon",
-  },
 ];
 
 export const courseChips = ["$997 founding · first 20", "$1,499 after", "Waitlist gets first access"];
