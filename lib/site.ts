@@ -84,6 +84,7 @@ export const products: Product[] = [
     name: "The Deal Tracker",
     copy: "Your ops department in one board. Every deal, stage and dollar owed, visible.",
     state: "Available",
+    img: "/img/deal-tracker.jpg",
   },
   {
     tag: "Contracts",
