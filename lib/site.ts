@@ -120,6 +120,15 @@ export const products: Product[] = [
     img: "/img/pitch-library.jpg",
   },
   {
+    tag: "All five tools",
+    price: "$149",
+    slug: "back-office",
+    name: "The Back Office",
+    copy: "Every department in one folder. All five tools — rate card, tracker, decoder, invoices, pitches — for $62 less than buying them one at a time.",
+    state: "Coming soon",
+    img: "/img/back-office.jpg",
+  },
+  {
     tag: "The Work",
     price: "$29",
     slug: "back-office-planner",
