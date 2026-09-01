@@ -1,111 +1,71 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export function Shell({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`shell ${className}`}>{children}</div>;
-}
+type BtnVariant = "solid" | "light" | "outline-ink" | "outline-cream";
 
-export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <p className={`label flex items-center gap-3 ${className}`}>
-      <span className="inline-block h-px w-6 bg-oxblood/60" />
-      {children}
-    </p>
-  );
-}
-
-type ButtonProps = {
-  href: string;
-  children: ReactNode;
-  variant?: "solid" | "outline" | "ghost" | "light";
-  className?: string;
+const variantClass: Record<BtnVariant, string> = {
+  solid: "btn btn-solid",
+  light: "btn btn-light",
+  "outline-ink": "btn btn-outline-ink",
+  "outline-cream": "btn btn-outline-cream",
 };
 
-export function Button({ href, children, variant = "solid", className = "" }: ButtonProps) {
-  const base =
-    "group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-mono text-[11px] uppercase tracking-label transition-all duration-300";
-  const styles: Record<string, string> = {
-    solid: "bg-oxblood text-linen hover:bg-oxblood-deep hover:-translate-y-0.5",
-    outline: "border border-ink/25 text-ink hover:border-oxblood hover:text-oxblood",
-    ghost: "text-ink/70 hover:text-oxblood",
-    light: "bg-linen text-ink hover:bg-white hover:-translate-y-0.5",
-  };
-  return (
-    <Link href={href} className={`${base} ${styles[variant]} ${className}`}>
+export function Btn({
+  href,
+  children,
+  variant = "solid",
+  arrow = false,
+  external = false,
+  className = "",
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: BtnVariant;
+  arrow?: boolean;
+  external?: boolean;
+  className?: string;
+}) {
+  const cls = `${variantClass[variant]} ${className}`;
+  const inner = (
+    <>
       {children}
-      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-        &rarr;
-      </span>
+      {arrow ? <span aria-hidden>&rarr;</span> : null}
+    </>
+  );
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={cls}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={cls}>
+      {inner}
     </Link>
   );
 }
 
-export function Section({
+/** Underlined text link (brand rule under it) used for inline "see more" actions. */
+export function TextLink({
+  href,
   children,
+  external = false,
   className = "",
-  tone = "paper",
-  id,
 }: {
+  href: string;
   children: ReactNode;
+  external?: boolean;
   className?: string;
-  tone?: "paper" | "bone" | "ink" | "linen";
-  id?: string;
 }) {
-  const tones: Record<string, string> = {
-    paper: "bg-paper text-ink",
-    bone: "bg-bone text-ink",
-    linen: "bg-linen text-ink",
-    ink: "bg-ink text-paper",
-  };
-  return (
-    <section id={id} className={`${tones[tone]} py-24 sm:py-32 ${className}`}>
-      <Shell>{children}</Shell>
-    </section>
-  );
-}
-
-export function SectionHead({
-  eyebrow,
-  title,
-  lede,
-  align = "left",
-}: {
-  eyebrow?: string;
-  title: ReactNode;
-  lede?: string;
-  align?: "left" | "center";
-}) {
-  return (
-    <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""}`}>
-      {eyebrow ? (
-        <div className={align === "center" ? "flex justify-center" : ""}>
-          <Eyebrow>{eyebrow}</Eyebrow>
-        </div>
-      ) : null}
-      <h2 className="display mt-6 text-[clamp(2.25rem,5vw,4rem)]">{title}</h2>
-      {lede ? <p className="mt-6 text-lg leading-relaxed text-graphite">{lede}</p> : null}
-    </div>
-  );
-}
-
-export function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="border-t border-current/15 pt-5">
-      <p className="display text-[clamp(2rem,4vw,3rem)]">{value}</p>
-      <p className="label mt-2 text-current/60">{label}</p>
-    </div>
-  );
-}
-
-export function Badge({ children, tone = "gold" }: { children: ReactNode; tone?: "gold" | "ox" | "mute" }) {
-  const tones: Record<string, string> = {
-    gold: "border-gold/50 text-gold",
-    ox: "border-oxblood/40 text-oxblood",
-    mute: "border-ink/20 text-mute",
-  };
-  return (
-    <span className={`rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-label ${tones[tone]}`}>
+  const cls = `label !text-ink border-b-[1.5px] border-brand pb-[3px] transition-colors hover:!text-brand ${className}`;
+  return external ? (
+    <a href={href} target="_blank" rel="noreferrer" className={cls}>
       {children}
-    </span>
+    </a>
+  ) : (
+    <Link href={href} className={cls}>
+      {children}
+    </Link>
   );
 }

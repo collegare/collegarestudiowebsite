@@ -1,285 +1,340 @@
+import Image from "next/image";
 import Link from "next/link";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { Marquee } from "@/components/marquee";
-import { Frame } from "@/components/frame";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { Button, Eyebrow, Section, SectionHead, Shell, Stat, Badge } from "@/components/ui";
-import { marqueeWords } from "@/lib/site";
-
-const frontEnd = [
-  "Your voice, sharpened until it sounds like nobody else",
-  "Series and formats people come back for",
-  "Positioning that makes the right brands find you",
-  "A content system you can actually keep up with",
-];
-
-const backEnd = [
-  "Your entity, set up properly and on purpose",
-  "Getting paid cleanly — rates, invoices, terms, net-30",
-  "A deal pipeline you can see, not a scattered inbox",
-  "Deliverables, usage rights, and renewals, tracked",
-];
-
-const offerings = [
-  {
-    title: "The Shop",
-    href: "/shop",
-    kicker: "Tools & templates",
-    copy: "Contract templates, rate cards, deal trackers, and the planners we use to run our own creator business.",
-    note: "Product flat-lay — planner + rate card",
-    tone: "sand" as const,
-  },
-  {
-    title: "The Academy",
-    href: "/academy",
-    kicker: "Learn the whole business",
-    copy: "The self-paced library: short lessons, real teardowns, and the systems behind a creator career that pays.",
-    note: "Lesson UI on laptop, warm desk",
-    tone: "clay" as const,
-  },
-  {
-    title: "The Community",
-    href: "/community",
-    kicker: "Build alongside people",
-    copy: "Weekly calls, deal reviews, and a room of creators who will tell you the truth about your rate.",
-    note: "Group call grid / meetup shot",
-    tone: "ox" as const,
-  },
-];
-
-const modules = [
-  { n: "01", t: "Position", d: "Pick the lane that actually fits you — not the one that worked for someone else." },
-  { n: "02", t: "Produce", d: "Series design, hooks, and a shooting cadence you can sustain past week three." },
-  { n: "03", t: "Incorporate", d: "Entity, EIN, business banking, bookkeeping. The boring hour that legitimizes everything." },
-  { n: "04", t: "Price", d: "Rate cards built from your numbers, and the language to hold the number in the room." },
-  { n: "05", t: "Pitch", d: "Outbound that gets answered, and inbound you can qualify in ninety seconds." },
-  { n: "06", t: "Deliver", d: "Contracts, usage, revisions, and a delivery system that doesn't live in your DMs." },
-  { n: "07", t: "Collect", d: "Invoicing, net terms, follow-up scripts, and what to do when they go quiet." },
-  { n: "08", t: "Scale", d: "Your own products, retainers, and the point where you stop trading hours for posts." },
-];
+import { FilmBand } from "@/components/film-band";
+import { ProductCard } from "@/components/product-card";
+import { Btn, TextLink } from "@/components/ui";
+import { ctaLabel, marqueeWords, courseChips, products } from "@/lib/site";
 
 export default function Home() {
+  const marqueeRun = [...Array(4).fill(marqueeWords).flat()];
+  const marqueeTrack = [...marqueeRun, ...marqueeRun];
+
   return (
-    <>
-      <SiteHeader />
+    <main>
+      {/* HERO */}
+      <section className="striped relative h-auto min-h-[max(660px,100svh)] overflow-hidden">
+        <video
+          src="/img/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/img/hero-2.jpg"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* Required overlays — footage swings near-white and cream type fails without them */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(26,21,18,0.62)_0%,rgba(26,21,18,0.42)_22%,rgba(26,21,18,0.5)_48%,rgba(26,21,18,0.6)_74%,rgba(26,21,18,0.78)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_48%,rgba(26,21,18,0.5)_0%,rgba(26,21,18,0.22)_55%,rgba(26,21,18,0)_80%)]" />
 
-      <main>
-        {/* HERO */}
-        <section className="relative overflow-hidden bg-paper">
-          <Shell className="grid items-end gap-14 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-28">
-            <div className="animate-rise">
-              <Eyebrow>Est. 2026 &middot; A creator business studio</Eyebrow>
-              <h1 className="display mt-8 text-[clamp(3.25rem,9vw,7.5rem)]">
-                Being a creator
-                <br />
-                isn&rsquo;t just
-                <br />
-                <span className="italic text-oxblood">posting.</span>
-              </h1>
-              <p className="mt-9 max-w-xl text-lg leading-relaxed text-graphite sm:text-xl">
-                It&rsquo;s a business &mdash; and most people are only running half of it. Collegare Studio teaches the
-                front end everyone sees and the back end that makes it real.
-              </p>
-              <div className="mt-11 flex flex-wrap items-center gap-4">
-                <Button href="/waitlist">Join the waitlist</Button>
-                <Button href="/course" variant="outline">
-                  See the course
-                </Button>
-              </div>
-              <div className="mt-14 grid max-w-lg grid-cols-3 gap-8">
-                <Stat value="20" label="Founding seats" />
-                <Stat value="8" label="Modules" />
-                <Stat value="2" label="Halves, taught together" />
-              </div>
-            </div>
-
-            <Frame note="Hero film — studio desk, hands, contracts, warm light" ratio="4/5" tone="clay" />
-          </Shell>
-        </section>
-
-        <Marquee words={marqueeWords} tone="ink" />
-
-        {/* THE TWO HALVES */}
-        <Section tone="linen" id="halves">
-          <SectionHead
-            eyebrow="The whole business"
-            title={
-              <>
-                Half a business is why
-                <br />
-                it feels so <span className="italic text-oxblood">unstable.</span>
-              </>
-            }
-            lede="You can have a great audience and still have no idea what you're owed, what you signed, or what happens if the algorithm turns. The two halves have to be built together."
-          />
-
-          <div className="mt-20 grid gap-px overflow-hidden rounded-sm bg-ink/10 lg:grid-cols-2">
-            <div className="bg-linen p-10 lg:p-14">
-              <Badge tone="ox">Front end</Badge>
-              <h3 className="display mt-7 text-4xl">What people see</h3>
-              <p className="mt-4 text-graphite">The part you already love. We make it intentional.</p>
-              <ul className="mt-9 space-y-5">
-                {frontEnd.map((item) => (
-                  <li key={item} className="flex gap-4 border-t border-ink/10 pt-5 text-graphite">
-                    <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-oxblood" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-ink p-10 text-paper lg:p-14">
-              <span className="rounded-full border border-gold/50 px-3 py-1 font-mono text-[10px] uppercase tracking-label text-gold">
-                Back end
-              </span>
-              <h3 className="display mt-7 text-4xl">What makes it real</h3>
-              <p className="mt-4 text-paper/60">The part nobody teaches. It&rsquo;s where the money lives.</p>
-              <ul className="mt-9 space-y-5">
-                {backEnd.map((item) => (
-                  <li key={item} className="flex gap-4 border-t border-paper/15 pt-5 text-paper/80">
-                    <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Section>
-
-        {/* THREE OFFERINGS */}
-        <Section tone="paper">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHead eyebrow="Three ways in" title="Start where you are." />
-            <Link href="/course" className="link-underline label text-ink">
-              Or go all in on the course
+        <div className="relative box-border flex min-h-[max(660px,100svh)] flex-col items-center justify-center gap-[clamp(18px,3vh,34px)] px-[clamp(18px,5vw,60px)] pb-[104px] pt-[132px] text-center text-cream">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/img/logo-cream.png" alt="Collegare Studio" className="hero-in h-auto w-[min(72vw,820px)]" />
+          <p className="hero-in font-serif text-[clamp(1.5rem,3.2vw,2.6rem)] italic leading-none" style={{ animationDelay: "160ms" }}>
+            Work hard, create smarter.
+          </p>
+          <div className="hero-in flex flex-wrap justify-center gap-3" style={{ animationDelay: "300ms" }}>
+            <Link
+              href="/waitlist"
+              className="inline-flex items-center gap-2.5 rounded-[2px] bg-brand px-7 py-4 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-cream transition-[background,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-hover"
+            >
+              {ctaLabel} <span>&rarr;</span>
+            </Link>
+            <Link
+              href="/academy"
+              className="inline-flex items-center gap-2.5 rounded-[2px] border-[1.5px] border-cream/75 bg-ink/55 px-7 py-4 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-cream backdrop-blur-[3px] transition-[background,transform] duration-200 hover:-translate-y-0.5 hover:bg-cream/[0.22]"
+            >
+              Explore the Academy
             </Link>
           </div>
+        </div>
 
-          <div className="mt-16 grid gap-10 md:grid-cols-3">
-            {offerings.map((o) => (
-              <Link key={o.title} href={o.href} className="group block">
-                <Frame note={o.note} ratio="4/5" tone={o.tone} className="transition-transform duration-500 group-hover:scale-[1.02]" />
-                <div className="mt-7">
-                  <p className="label">{o.kicker}</p>
-                  <h3 className="display mt-3 text-3xl group-hover:text-oxblood">{o.title}</h3>
-                  <p className="mt-3 text-graphite">{o.copy}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-oxblood">
-                    Learn more
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                  </span>
-                </div>
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 px-[clamp(18px,3.4vw,44px)] pb-6 text-cream">
+          <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] opacity-70">One person. Every department.</span>
+          <span className="flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] opacity-80">
+            Scroll
+            <span className="relative inline-block h-[30px] w-px overflow-hidden bg-cream/30">
+              <span className="absolute inset-0 animate-cue bg-cream" />
+            </span>
+          </span>
+        </div>
+      </section>
+
+      {/* MARQUEE */}
+      <div className="overflow-hidden bg-brand py-3.5 text-cream">
+        <div className="flex w-max animate-marq-36 gap-7 whitespace-nowrap">
+          {marqueeTrack.map((w, i) => (
+            <span key={i} className="flex items-center gap-7 text-[12px] font-semibold uppercase tracking-[0.16em]">
+              {w}
+              <span className="opacity-50">/</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* MAKE MORE. FOR LONGER. */}
+      <section className="bg-cream py-[clamp(90px,15vh,190px)]">
+        <div className="mx-auto max-w-[1000px] px-[clamp(20px,5vw,48px)] text-center">
+          <p data-reveal className="label !text-brand">Sustainability</p>
+          <h2 data-reveal className="display mt-[clamp(34px,5vh,58px)] text-[clamp(2.6rem,6.6vw,5.4rem)] leading-[0.96]">
+            Make more. <span className="ital text-brand">For longer.</span>
+          </h2>
+          <p data-reveal className="mx-auto mt-[clamp(34px,5vh,56px)] max-w-[56ch] text-[0.98rem] leading-[1.85] text-graphite [text-wrap:pretty]">
+            Every hour you spend reconstructing what a brand owes you is an hour you didn&rsquo;t spend making
+            something. The more of your week the business eats, the less of you is left for the work — and the work is
+            the only part that compounds. A staffed business isn&rsquo;t the opposite of being creative. It&rsquo;s the
+            only version of this that lasts past year three.
+          </p>
+          <div data-reveal className="mt-[clamp(34px,5vh,54px)] flex justify-center">
+            <Btn href="/waitlist" variant="outline-ink">Join the waitlist</Btn>
+          </div>
+        </div>
+      </section>
+
+      {/* COLLECTIVE FILM BAND */}
+      <FilmBand />
+
+      {/* CREATIVITY ISN'T WHAT RUNS OUT */}
+      <section className="bg-linen py-[clamp(84px,13vh,170px)]">
+        <div className="mx-auto max-w-[1000px] px-[clamp(20px,5vw,48px)] text-center">
+          <p data-reveal className="label !text-brand">The whole business</p>
+          <h2 data-reveal className="display mt-[clamp(30px,4.5vh,52px)] text-[clamp(2.2rem,5.4vw,4.4rem)] leading-[0.98]">
+            Creativity isn&rsquo;t <span className="ital text-brand">what runs out.</span>
+          </h2>
+          <p data-reveal className="mx-auto mt-[clamp(30px,4.5vh,50px)] max-w-[56ch] text-[0.98rem] leading-[1.85] text-graphite [text-wrap:pretty]">
+            You didn&rsquo;t get worse at making things. You started doing four other jobs at the same time — chasing
+            the invoice, guessing the rate, skimming the contract, remembering the deadline. That&rsquo;s the tax
+            nobody warned you about, and it&rsquo;s why creators burn out on their second good year instead of their
+            tenth. Burnout is a business problem. So we fixed it like one.
+          </p>
+        </div>
+      </section>
+
+      {/* THREE OFFERING BLOCKS */}
+      <OfferingBlock
+        bg="bg-cream"
+        img="/img/desk-laptops.jpg"
+        objectPosition="50% 42%"
+        eyebrow="Start where the gap is"
+        title="A department in a box."
+        body="The contracts, rate cards, trackers and invoices we run our own company on. Buy the one you're bleeding from."
+        href="/shop"
+        cta="Browse the shop"
+        variant="light"
+      />
+      <OfferingBlock
+        bg="striped"
+        img="/img/overhead-reading.jpg"
+        objectPosition="50% 45%"
+        eyebrow="Start where the gap is"
+        title="The onboarding you never got."
+        body="Every company you've worked for trained you. Nobody trained you into this one. Short lessons, real teardowns, one action each."
+        href="/academy"
+        cta="Learn more"
+        variant="dark"
+        imageRight
+      />
+      <OfferingBlock
+        bg="bg-linen"
+        img="/img/duo-studio.jpg"
+        objectPosition="50% 38%"
+        eyebrow="Start where the gap is"
+        title="The coworkers you lost."
+        body="Going out on your own also meant nobody to ask “does this rate look insane to you?” This is that room — standups, deal reviews, and a feed where you can post a real number."
+        href="/collective"
+        cta="Inside the Collective"
+        variant="light"
+      />
+
+      {/* INLINE CAPTURE BAND */}
+      <section className="border-t border-ink/[0.14] bg-linen">
+        <div className="mx-auto grid max-w-shell items-center gap-[clamp(24px,4vw,60px)] px-[clamp(18px,3.4vw,44px)] py-[clamp(44px,7vh,76px)] [grid-template-columns:repeat(auto-fit,minmax(290px,1fr))]">
+          <div>
+            <h3 data-reveal className="display text-[clamp(1.7rem,3.4vw,2.6rem)] leading-none">
+              Four vacancies. <span className="ital text-brand">One list to fix them.</span>
+            </h3>
+            <p data-reveal className="mt-3 max-w-[44ch] text-[1rem] leading-[1.6] text-graphite">
+              The Academy and the Collective open to the waitlist first. Twenty founding seats, then it&rsquo;s full
+              price for everyone else.
+            </p>
+          </div>
+          <div data-reveal>
+            <WaitlistForm tone="light" source="home-inline" />
+          </div>
+        </div>
+      </section>
+
+      {/* COURSE SPOTLIGHT */}
+      <section className="striped">
+        <div className="mx-auto grid max-w-shell items-center gap-[clamp(32px,5vw,72px)] px-[clamp(18px,3.4vw,44px)] py-[clamp(72px,11vh,132px)] [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+          <div className="overflow-hidden">
+            <div className="relative aspect-[4/5] w-full">
+              <Image src="/img/hero-3.jpg" alt="" fill sizes="(max-width:900px) 100vw, 50vw" className="object-cover object-[50%_28%]" />
+            </div>
+          </div>
+          <div>
+            <p data-reveal className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-cream/60">The flagship</p>
+            <h2 data-reveal className="display mt-[18px] text-[clamp(2.3rem,5.2vw,4.2rem)] leading-[0.94]">The Creator Business Course.</h2>
+            <p data-reveal className="mt-[22px] max-w-[48ch] text-[1.06rem] leading-[1.65] text-cream/80 [text-wrap:pretty]">
+              Eight modules that staff every empty department. You finish with an entity, a rate you can defend out
+              loud, a contract you understand, a pipeline you can see, and a content system that runs without you
+              burning out to feed it.
+            </p>
+            <div data-reveal className="mt-[26px] flex flex-wrap gap-2">
+              {courseChips.map((c) => (
+                <span key={c} className="border border-cream/30 px-3.5 py-2 text-[10.5px] font-semibold uppercase tracking-[0.14em]">
+                  {c}
+                </span>
+              ))}
+            </div>
+            <div data-reveal className="mt-8 flex flex-wrap items-center gap-3.5">
+              <Link
+                href="/waitlist"
+                className="rounded-[2px] bg-brand px-6 py-3.5 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-brand-hover"
+              >
+                Claim a founding seat &rarr;
               </Link>
+              <Link href="/academy" className="border-b border-cream/40 pb-[3px] text-[11.5px] font-semibold uppercase tracking-[0.14em] text-cream/85 hover:text-cream">
+                Full curriculum
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SHOP PREVIEW */}
+      <section className="bg-linen py-[clamp(72px,11vh,130px)]">
+        <div className="mx-auto max-w-shell px-[clamp(18px,3.4vw,44px)]">
+          <div className="flex flex-wrap items-end justify-between gap-[18px]">
+            <div>
+              <p data-reveal className="label !text-brand">The Shop</p>
+              <h2 data-reveal className="display mt-3 text-[clamp(2rem,4.2vw,3.2rem)] leading-none">A department in a box.</h2>
+            </div>
+            <TextLink href="/shop">All files &rarr;</TextLink>
+          </div>
+          <div className="mt-[clamp(34px,5vh,56px)] grid gap-[clamp(24px,3vw,48px)] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
+            {products.slice(0, 3).map((p) => (
+              <ProductCard key={p.name} product={p} />
             ))}
           </div>
-        </Section>
+        </div>
+      </section>
 
-        {/* COURSE SPOTLIGHT */}
-        <section className="bg-oxblood text-linen">
-          <Shell className="grid gap-14 py-24 lg:grid-cols-[0.9fr_1.1fr] lg:py-32">
-            <Frame note="Founder portrait — Maya, studio, direct gaze" ratio="1/1" tone="ink" />
-            <div className="flex flex-col justify-center">
-              <p className="label flex items-center gap-3 text-linen/60">
-                <span className="inline-block h-px w-6 bg-linen/40" />
-                The flagship
-              </p>
-              <h2 className="display mt-7 text-[clamp(2.5rem,6vw,4.5rem)]">
-                The Creator Business
-                <br />
-                Course.
-              </h2>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-linen/80">
-                Eight modules that take you from &ldquo;I post and hope&rdquo; to a business with an entity, a rate, a
-                pipeline, and a system behind it. Built for influencers, UGC creatives, and founders building in public.
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <span className="rounded-full border border-linen/30 px-3 py-1 font-mono text-[10px] uppercase tracking-label">
-                  $997 founding &middot; first 20
-                </span>
-                <span className="rounded-full border border-linen/30 px-3 py-1 font-mono text-[10px] uppercase tracking-label">
-                  $1,499 after
-                </span>
-                <span className="rounded-full border border-linen/30 px-3 py-1 font-mono text-[10px] uppercase tracking-label">
-                  Waitlist gets first access
-                </span>
-              </div>
-              <div className="mt-11 flex flex-wrap gap-4">
-                <Button href="/waitlist" variant="light">
-                  Claim a founding seat
-                </Button>
-                <Link href="/course" className="link-underline self-center font-mono text-[11px] uppercase tracking-label">
-                  Full curriculum
-                </Link>
-              </div>
+      {/* FOUNDERS */}
+      <section className="bg-cream">
+        <div className="mx-auto grid max-w-shell items-center gap-[clamp(32px,5vw,72px)] px-[clamp(18px,3.4vw,44px)] py-[clamp(72px,11vh,130px)] [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+          <div className="grid grid-cols-2 gap-3">
+            <div data-reveal className="relative aspect-[4/5] w-full">
+              <Image src="/img/night.jpg" alt="" fill sizes="25vw" className="object-cover" />
             </div>
-          </Shell>
-        </section>
-
-        {/* CURRICULUM */}
-        <Section tone="paper">
-          <SectionHead eyebrow="Inside the course" title="Eight modules. Both halves." />
-          <div className="mt-16 grid gap-px bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
-            {modules.map((m) => (
-              <div key={m.n} className="bg-paper p-8 transition-colors hover:bg-bone">
-                <span className="font-mono text-[11px] tracking-label text-oxblood">{m.n}</span>
-                <h3 className="display mt-4 text-3xl">{m.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-graphite">{m.d}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* FOUNDERS */}
-        <Section tone="bone">
-          <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <Frame note="Founders — Maya, Sky, Karol, editorial group shot" ratio="5/6" tone="sand" />
-            <div>
-              <Eyebrow>Who&rsquo;s teaching</Eyebrow>
-              <h2 className="display mt-7 text-[clamp(2.25rem,5vw,3.75rem)]">
-                We built this because we
-                <br />
-                needed it <span className="italic text-oxblood">first.</span>
-              </h2>
-              <p className="mt-7 text-lg leading-relaxed text-graphite">
-                Collegare Studio came out of running a real creator business &mdash; the brand deals, the invoices that
-                went unpaid for ninety days, the contracts we should have read twice, the systems we built after we got
-                burned.
-              </p>
-              <p className="mt-5 text-lg leading-relaxed text-graphite">
-                Nobody handed us the back end. We&rsquo;re handing it to you.
-              </p>
-              <Link href="/studio" className="mt-9 inline-block link-underline font-mono text-[11px] uppercase tracking-label text-oxblood">
-                Meet the studio
-              </Link>
+            <div data-reveal className="relative mt-[38px] aspect-[4/5] w-full">
+              <Image src="/img/desk-work.jpg" alt="" fill sizes="25vw" className="object-cover" />
             </div>
           </div>
-        </Section>
-
-        {/* WAITLIST BAND */}
-        <section id="waitlist" className="bg-ink text-paper">
-          <Shell className="grid gap-14 py-24 lg:grid-cols-[1fr_1fr] lg:py-32">
-            <div>
-              <p className="label flex items-center gap-3 text-paper/50">
-                <span className="inline-block h-px w-6 bg-gold" />
-                The waitlist
-              </p>
-              <h2 className="display mt-7 text-[clamp(2.5rem,6vw,4.5rem)]">
-                Doors open
-                <br />
-                to the list first.
-              </h2>
-              <p className="mt-7 max-w-md text-lg leading-relaxed text-paper/70">
-                Twenty founding seats at $997. After that it&rsquo;s $1,499. The waitlist gets the link before anyone
-                else sees it.
-              </p>
+          <div>
+            <p data-reveal className="label !text-brand">Who&rsquo;s teaching</p>
+            <h2 data-reveal className="display mt-[clamp(26px,3.4vw,42px)] text-[clamp(2.1rem,4.4vw,3.5rem)] leading-[0.98]">
+              We rebuilt the company <span className="ital text-brand">we walked out of.</span>
+            </h2>
+            <p data-reveal className="mt-5 max-w-[48ch] text-[1.05rem] leading-[1.7] text-graphite [text-wrap:pretty]">
+              Collegare came out of running a real creator business — the deals we were proud of, the contract we
+              should have read twice, the invoice that sat for ninety days while we kept posting. We built the finance
+              and legal and ops functions after we got burned, one at a time, late and badly.
+            </p>
+            <p data-reveal className="mt-3.5 max-w-[48ch] text-[1.05rem] leading-[1.7] text-graphite">
+              You don&rsquo;t have to do it in that order.
+            </p>
+            <div data-reveal className="mt-[26px]">
+              <TextLink href="/about">About the studio &rarr;</TextLink>
             </div>
-            <div className="lg:pt-6">
-              <WaitlistForm tone="dark" source="home" />
-            </div>
-          </Shell>
-        </section>
-      </main>
+          </div>
+        </div>
+      </section>
 
-      <SiteFooter />
-    </>
+      {/* WAITLIST BAND */}
+      <section className="striped">
+        <div className="mx-auto grid max-w-shell items-center gap-[clamp(32px,5vw,72px)] px-[clamp(18px,3.4vw,44px)] py-[clamp(72px,11vh,132px)] [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+          <div>
+            <p className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-cream/55">The waitlist</p>
+            <h2 className="display mt-[18px] text-[clamp(2.3rem,5.2vw,4.2rem)] leading-[0.94]">
+              Doors open to <span className="ital">the list first.</span>
+            </h2>
+            <p className="mt-[22px] max-w-[40ch] text-[1.05rem] leading-[1.7] text-cream/[0.72] [text-wrap:pretty]">
+              Twenty founding seats at $997. After that it&rsquo;s $1,499. The list gets the link before anyone else
+              sees it.
+            </p>
+          </div>
+          <div>
+            <WaitlistForm tone="dark" source="home" />
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function OfferingBlock({
+  bg,
+  img,
+  objectPosition,
+  eyebrow,
+  title,
+  body,
+  href,
+  cta,
+  variant,
+  imageRight = false,
+}: {
+  bg: string;
+  img: string;
+  objectPosition: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: string;
+  cta: string;
+  variant: "light" | "dark";
+  imageRight?: boolean;
+}) {
+  const dark = variant === "dark";
+  const media = (
+    <div className="group relative min-h-[56vh] overflow-hidden">
+      <Image
+        src={img}
+        alt=""
+        fill
+        sizes="(max-width:900px) 100vw, 50vw"
+        style={{ objectPosition }}
+        className="object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.04]"
+      />
+    </div>
+  );
+  const copy = (
+    <div className="flex flex-col justify-center px-[clamp(24px,5vw,88px)] py-[clamp(44px,6.5vw,96px)]">
+      <p data-reveal className={`label ${dark ? "!text-cream/60" : "!text-ink/60"}`}>{eyebrow}</p>
+      <h3 data-reveal className="display mt-[clamp(26px,3.4vw,42px)] text-[clamp(2.1rem,4.2vw,3.6rem)] leading-[0.98]">{title}</h3>
+      <p data-reveal className={`mt-[clamp(26px,3.4vw,40px)] max-w-[48ch] text-[0.97rem] leading-[1.85] [text-wrap:pretty] ${dark ? "text-cream/80" : "text-ink/80"}`}>{body}</p>
+      <div data-reveal className="mt-[clamp(28px,3.6vw,44px)]">
+        <Btn href={href} variant={dark ? "outline-cream" : "outline-ink"} arrow className="!rounded-[2px]">{cta}</Btn>
+      </div>
+    </div>
+  );
+
+  return (
+    <section className={`${bg} border-b border-ink/[0.12]`}>
+      <div className="grid min-h-[68vh] items-stretch md:grid-cols-2">
+        {imageRight ? (
+          <>
+            <div className="max-md:order-2">{copy}</div>
+            {media}
+          </>
+        ) : (
+          <>
+            {media}
+            {copy}
+          </>
+        )}
+      </div>
+    </section>
   );
 }

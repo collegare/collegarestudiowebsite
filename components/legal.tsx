@@ -1,26 +1,28 @@
-import type { ReactNode } from "react";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { Shell, Eyebrow } from "@/components/ui";
+type LegalData = {
+  title: string;
+  intro: string;
+  sections: { t: string; d: string }[];
+};
 
-export function LegalPage({ title, updated, children }: { title: string; updated: string; children: ReactNode }) {
+export function LegalDoc({ data }: { data: LegalData }) {
   return (
-    <>
-      <SiteHeader />
-      <main className="bg-paper">
-        <Shell className="max-w-3xl py-20 lg:py-28">
-          <Eyebrow>Legal</Eyebrow>
-          <h1 className="display mt-7 text-[clamp(2.5rem,6vw,4.5rem)]">{title}</h1>
-          <p className="label mt-5">Last updated {updated}</p>
-          <div className="mt-12 space-y-8 leading-relaxed text-graphite [&_h2]:font-display [&_h2]:text-2xl [&_h2]:text-ink [&_a]:text-oxblood [&_a]:underline">
-            <div className="border-l-2 border-ember bg-bone/60 p-5 font-mono text-[11px] uppercase tracking-label text-ember">
-              Draft placeholder — have counsel review before running paid traffic.
+    <main className="bg-cream" style={{ paddingTop: "var(--chrome-offset)" }}>
+      <div className="mx-auto max-w-[820px] px-[clamp(18px,3.4vw,44px)] pb-[clamp(72px,11vh,130px)] pt-[clamp(54px,8vh,100px)]">
+        <p className="label !text-brand">Legal</p>
+        <h1 className="display mt-4 text-[clamp(2.2rem,5vw,3.8rem)] leading-none">{data.title}</h1>
+        <p className="mt-5 text-[1.02rem] leading-[1.75] text-graphite">{data.intro}</p>
+        <div className="mt-8">
+          {data.sections.map((s) => (
+            <div key={s.t} className="border-t border-ink/[0.16] py-5">
+              <h2 className="display !font-bold text-[1.4rem] leading-tight tracking-[-0.02em]">{s.t}</h2>
+              <p className="mt-2 text-[1rem] leading-[1.7] text-graphite [text-wrap:pretty]">{s.d}</p>
             </div>
-            {children}
-          </div>
-        </Shell>
-      </main>
-      <SiteFooter />
-    </>
+          ))}
+        </div>
+        <p className="mt-[26px] text-[10.5px] font-semibold uppercase tracking-[0.14em] text-mute">
+          Draft — have counsel review before running ads.
+        </p>
+      </div>
+    </main>
   );
 }
