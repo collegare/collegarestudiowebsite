@@ -1,8 +1,9 @@
 node_modules
 .next
 out
-.env
-.env*.local
+# Ignore every env file except the committed template.
+.env*
+!.env.example
 .vercel
 *.tsbuildinfo
 next-env.d.ts
